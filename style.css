@@ -68,18 +68,18 @@ h1 {
   transform: translate3D(0, -2px, 0);
 }
 
-.imgurImg {
+.imgurImg,
+.imgurImgLast {
   display: block;
   width: 100%;
 }
 
 .imgurImgLast {
-  display: block;
-  width: 100%;
   border-radius: 0 0 12px 12px;
 }
 
-.imgurImg:hover {
+.imgurImg:hover,
+.imgurImgLast:hover {
   opacity: 0.8;
 }
 

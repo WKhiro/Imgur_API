@@ -1,0 +1,187 @@
+html {
+  font-family: "Dosis", sans-serif;
+  box-sizing: border-box;
+  background-color: black;
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+}
+
+/* Shrinks the logo without stretching it */
+#logoContainer {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30%;
+  margin: 0 auto;
+  padding-right: 20px;
+}
+
+#logo {
+  margin: 1rem auto;
+  max-width: 100%;
+}
+
+.apiText {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  font-size: 70px;
+}
+
+/* Contains all the cards */
+.container {
+  column-count: 4;
+  column-gap: 1em;
+}
+
+/* Imgur titles */
+h1 {
+  text-align: center;
+  color: white;
+  padding: 1.5rem 2.5rem;
+  /* Moves up the title to prevent a white line at the top */
+  margin: 0 0 0 0;
+  font-size: 1.5rem;
+  background-image: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+/* Contains the Imgur titles and images */
+.card {
+  margin: 1rem;
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+  /* Rounds off my cards */
+  border-radius: 12px;
+  /* Delays transition speed on hover*/
+  transition: all 0.2s linear;
+  display: inline-block;
+  width: 100%;
+}
+
+.card:hover {
+  /* Make the shadow darker */
+  box-shadow: 2px 8px 45px rgba(0, 0, 0, 0.15);
+  transform: translate3D(0, -2px, 0);
+}
+
+.imgurImg {
+  display: block;
+  width: 100%;
+}
+
+.imgurImg:hover {
+  opacity: 0.8;
+}
+
+/* Mixes up the gradient colors for the cards */
+.card:nth-child(2n) h1 {
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.card:nth-child(4n) h1 {
+  background-image: linear-gradient(120deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.card:nth-child(5n) h1 {
+  background-image: linear-gradient(120deg, #ffc3a0 0%, #ffafbd 100%);
+}
+
+.search {
+  display: inline-block;
+}
+
+.cont {
+  text-align: center;
+}
+
+/* Style the Image Used to Trigger the Modal */
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {
+  opacity: 0.7;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-bottom: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content,
+#caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+  }
+}

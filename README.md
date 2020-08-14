@@ -2,7 +2,7 @@
 
 This simple web application connects to the [Imgur API](https://apidocs.imgur.com/?version=latest) and fetches images based on whatever you search for.
 
-[Link to web application]()
+[Link to web application](https://wkhiro.github.io/Imgur_API/)
 
 ## Features
 

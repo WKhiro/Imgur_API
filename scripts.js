@@ -1,8 +1,10 @@
-var request_url = "https://api.imgur.com/3/gallery/search/?q=cats";
-const client_id = "b067d5cb828ec5a";
+// Wesley Kok
+
+var requestURL = "https://api.imgur.com/3/gallery/search/?q=cats";
+const clientID = "b067d5cb828ec5a";
 
 // Imgur authorization to begin pulling from API
-function requestAlbum() {
+function requestGallery() {
   var req = new XMLHttpRequest();
 
   req.onreadystatechange = function (e) {
@@ -13,48 +15,67 @@ function requestAlbum() {
     }
   };
 
-  req.open("GET", request_url, true); // true for asynchronous
-  req.setRequestHeader("Authorization", "Client-ID " + client_id);
+  req.open("GET", requestURL, true); // true for asynchronous
+  req.setRequestHeader("Authorization", "Client-ID " + clientID);
   req.send(null);
 }
 
-function processRequest(response_text) {
-  if (response_text == "Not found") {
-    console.log("Imgur album not found.");
+function processRequest(response) {
+  if (response == "Not found") {
+    console.log("Imgur gallery not found.");
   } else {
+    // Remove all the previous images
     var node = document.getElementById("parent");
     while (node.firstChild) {
       node.removeChild(node.firstChild);
     }
 
-    var json = JSON.parse(response_text);
+    var json = JSON.parse(response);
 
-    for (const value of json.data) {
-      if (value.images && value.images[0].link.split(".").pop() !== "mp4") {
+    for (const dataArray of json.data) {
+      // Only care about the images
+      const imagesArray = dataArray.images;
+
+      // Exclude videos
+      if (imagesArray && imagesArray[0].link.split(".").pop() !== "mp4") {
+        // Make a card to store each post's title and images
         const card = document.createElement("div");
         card.setAttribute("class", "card");
+
         const h1 = document.createElement("h1");
-        h1.textContent = value.title;
+        const titleText = dataArray.title;
+
+        // Cut off the title if it's excessively long
+        if (titleText.length > 100) {
+          h1.textContent = `${titleText.substring(0, 100)}...`;
+        } else {
+          h1.textContent = titleText;
+        }
         card.appendChild(h1);
 
-        for (const image of value.images) {
+        // Entries used to round off the last image in each card
+        for (const [i, image] of imagesArray.entries()) {
           const imgurImg = document.createElement("img");
-          imgurImg.setAttribute("class", "imgurImg");
+          if (i == imagesArray.length - 1) {
+            imgurImg.setAttribute("class", "imgurImgLast");
+          } else {
+            imgurImg.setAttribute("class", "imgurImg");
+          }
           imgurImg.src = image.link;
 
+          // Create modal box for each image
           var modal = document.getElementById("myModal");
-          var modalImg = document.getElementById("focusedImage");
-          var span = document.getElementsByClassName("close")[0];
+          var modalImg = document.getElementById("modalImg");
+
           imgurImg.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
           };
+
           modal.onclick = function () {
             modal.style.display = "none";
           };
-          span.onclick = function () {
-            modal.style.display = "none";
-          };
+
           card.appendChild(imgurImg);
         }
         var container = document.getElementById("parent");
@@ -64,24 +85,20 @@ function processRequest(response_text) {
   }
 }
 
-function myFunction() {
-  var x = document.getElementById("myText").value;
-  request_url = "https://api.imgur.com/3/gallery/search/top/?q=" + x;
-  requestAlbum();
+// Modify the request url and send the request
+function search() {
+  var searchInput = document.getElementById("myText").value;
+  requestURL = "https://api.imgur.com/3/gallery/search/top/?q=" + searchInput;
+  requestGallery();
 }
 
-function closingFunc() {
-  modal.style.display = "none";
-}
-
+// Adding ENTER key functionality for the search bar
 var input = document.getElementById("myText");
-
 input.addEventListener("keyup", function (event) {
-  // Number 13 is the "Enter" key on the keyboard
+  // 13 == ENTER key
   if (event.keyCode === 13) {
     // Cancel the default action, if needed
     event.preventDefault();
-    // Trigger the button element with a click
     document.getElementById("myBtn").click();
   }
 });

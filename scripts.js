@@ -31,8 +31,25 @@ function processRequest(response) {
     }
 
     var json = JSON.parse(response);
+    console.log(json);
 
+    var tagsDict = {};
     for (const dataArray of json.data) {
+      const tagsArray = dataArray.tags;
+      if (tagsArray) {
+        for (const tagObject of tagsArray) {
+          const name = tagObject.name;
+          console.log(name);
+
+          if (name in tagsDict) {
+            tagsDict[name] += 1;
+          } else {
+            tagsDict[name] = 1;
+          }
+        }
+        console.log(tagsDict);
+      }
+
       // Only care about the images
       const imagesArray = dataArray.images;
 
@@ -81,6 +98,17 @@ function processRequest(response) {
         var container = document.getElementById("parent");
         container.appendChild(card);
       }
+    }
+    for (const [tag, counter] of Object.entries(tagsDict).sort(function (a, b) {
+      return b[1] - a[1];
+    })) {
+      console.log(counter);
+      const tagsParent = document.getElementById("tagsParent");
+
+      const tagCard = document.createElement("div");
+      tagCard.setAttribute("class", "tagCard");
+      tagCard.textContent = tag + " " + counter;
+      tagsParent.appendChild(tagCard);
     }
   }
 }

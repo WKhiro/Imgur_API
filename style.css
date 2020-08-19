@@ -139,3 +139,14 @@ h1 {
     transform: scale(1);
   }
 }
+
+.tagsContainer {
+  display: block;
+  border: 2px solid blue;
+}
+
+.tagCard {
+  display: inline-block;
+  border: 2px solid red;
+  color: white;
+}

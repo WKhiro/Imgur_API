@@ -54,7 +54,7 @@ h1 {
 
 /* Contains the Imgur titles and images */
 .card {
-  margin: 1rem;
+  margin-top: 20px;
   box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
   /* Delays transition speed on hover*/
   transition: all 0.2s linear;
@@ -142,11 +142,12 @@ h1 {
 
 .tagsContainer {
   display: block;
-  border: 2px solid blue;
+  margin-top: 20px;
 }
 
 .tagCard {
   display: inline-block;
-  border: 2px solid red;
+  border: 2px solid gray;
+  padding: 3px;
   color: white;
 }
